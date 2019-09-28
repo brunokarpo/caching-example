@@ -27,4 +27,14 @@ class PersonResource(
         return ResponseEntity.ok(PersonDTO(person))
     }
 
+    @PutMapping
+    fun update(@RequestBody dto: PersonDTO): ResponseEntity<PersonDTO> {
+        if (dto.codigo == null) {
+            return ResponseEntity.badRequest().build()
+        }
+        val person = service.update(dto.toPerson())
+
+        return ResponseEntity.ok(PersonDTO(person))
+    }
+
 }

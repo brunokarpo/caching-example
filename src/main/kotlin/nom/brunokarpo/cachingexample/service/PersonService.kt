@@ -2,6 +2,7 @@ package nom.brunokarpo.cachingexample.service
 
 import nom.brunokarpo.cachingexample.model.Person
 import nom.brunokarpo.cachingexample.repository.PersonRepository
+import org.springframework.cache.annotation.CacheEvict
 import org.springframework.cache.annotation.Cacheable
 import org.springframework.stereotype.Service
 import java.util.*
@@ -20,6 +21,11 @@ class PersonService(
     fun retrieveById(id: UUID): Person {
         Thread.sleep(10000)
         return repository.getOne(id)
+    }
+
+    @CacheEvict(value = "PERSON", key = "#person.id")
+    fun update(person: Person): Person {
+        return repository.save(person)
     }
 
 }
