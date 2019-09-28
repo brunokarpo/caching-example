@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  database:
+    image: postgres:9.6-alpine
+    restart: always
+    environment:
+      POSTGRES_DB: caching-app
+      POSTGRES_USER: caching-postgres-user
+      POSTGRES_PASSWORD: caching-postgres-pass
+
+  redis:
+    image: redis:5.0.6-alpine
+    restart: always
+
+  app:
+    build: .
+    environment:
+      spring.datasource.url: jdbc:postgresql://database:5432/caching-app
+      spring.datasource.username: caching-postgres-user
+      spring.datasource.password: caching-postgres-pass
+      spring.jpa.hibernate.ddl-auto: none
+      spring.cache.type: redis
+      spring.redis.host: redis
+      spring.redis.port: 6379
+    ports:
+      - 8080:8080
+    depends_on:
+      - database
+      - redis

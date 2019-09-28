@@ -1,5 +1,8 @@
 PRONY: build
 
+_clean:
+	./mvnw clean
+
 build:
 	./mvnw clean install
 
@@ -19,3 +22,10 @@ infra:
 
 infra-stop:
 	docker container stop caching-example-postgres caching-example-redis
+
+
+execute: _clean
+	docker-compose up -d --build
+
+stop:
+	docker-compose down
