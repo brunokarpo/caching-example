@@ -15,4 +15,9 @@ class PersonService(
         return repository.save(person)
     }
 
+    fun retrieveById(id: UUID): Person {
+        Thread.sleep(10000)
+        return repository.getOne(id)
+    }
+
 }
