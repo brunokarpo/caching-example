@@ -1,5 +1,6 @@
 package nom.brunokarpo.cachingexample.model
 
+import java.io.Serializable
 import java.util.*
 import javax.persistence.Entity
 import javax.persistence.Id
@@ -13,4 +14,4 @@ data class Person(
         var id: UUID? = null,
         var name: String,
         var age: Int
-)
+) : Serializable
